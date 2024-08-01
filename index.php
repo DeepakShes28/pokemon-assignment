@@ -1,3 +1,8 @@
+<?php
+$json = file_get_contents("./data.json");
+$data = json_decode($json, true);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,16 +16,24 @@
 
 </head>
 
-<body class="bg-dark">
+<body class="bg-black">
   <div class="container">
     <div class="mt-4 mb-5 d-flex justify-content-between align-items-center">
       <h1 class="text-white">Get your Pokemon!</h1>
       <div>
-        <button class="btn btn-primary">
+        
+      <form class="d-flex" role="search">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+                <i class="fab fa-youtube" style="color: red;"></i>
+                <i class="fab fa-instagram" style="color: red;"></i>
+                <i class="fab fa-whatsapp" style="color: green;"></i>
+                <button class="btn btn-warning"></button>
           <i class="fa fa-sign-in"></i> Login</button>
       </div>
     </div>
-    <table class="table table-dark">
+    <table class="table table-dark table-striped">
       <thead>
         <tr>
           <th scope="col">Image</th>
@@ -35,6 +48,20 @@
       <tbody>
 
         <!-- Write your code here -->
+        <?php foreach ($data as $element) : ?>
+                    <tr>
+                        <td><img src="<?= $element["image"]["thumbnail"] ?>" alt=""></td>
+                        <td><?= $element["name"]["english"] ?></td>
+                        <td><?= strtoupper($element["species"]) ?></td>
+                        <td><?= $element["description"] ?></td>
+                        <td><?= $element["profile"]["weight"] ?></td>
+                        <td><?= $element["profile"]["height"] ?></td>
+                        <td><button class="btn btn-warning">Collect</button></td>
+
+
+                    </tr>
+
+                <?php endforeach ?>
       </tbody>
     </table>
 
